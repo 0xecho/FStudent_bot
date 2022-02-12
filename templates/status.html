@@ -27,10 +27,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- jinja for loop bots_status -->
-                        {{bots_status}}
                         {% for bot in bots_status %}
-                            {{bot}}
                             <tr>
                                 <td>{{ bot }}</td>
                                 <td>
