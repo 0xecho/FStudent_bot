@@ -70,10 +70,13 @@ def get_notifiable_users_and_courses():
                 user_courses[user].append(course)
     return user_courses
 
-def get_user_latest_result(user, course):
-    api = EstudentAPI(user.username, user.password)
-    results = api.get_course_results(course.eid)
+def get_user_latest_result(user_api, course):
+    logging.info('Getting latest result of course %s for user %s' % (course.name, user_api.username))
+    results = user_api.get_course_results(course.eid)
     return results
+
+def get_user_api(user):
+    return EstudentAPI(user.username, user.password)
 
 def get_notifiable_users_data():
     notifiable_users = get_notifiable_users_and_courses()
@@ -81,8 +84,9 @@ def get_notifiable_users_data():
     for user in notifiable_users:
         courses = notifiable_users[user]
         notifiable_users_data[user] = {}
+        user_api = get_user_api(user)
         for course in courses:
-            latest_course_result = get_user_latest_result(user, course)
+            latest_course_result = get_user_latest_result(user_api, course)
             notifiable_users_data[user][course] = latest_course_result
             for assessment_name, marks in latest_course_result['assessments'].items():
                 assessment_obj = Assessment.select().where(Assessment.name == assessment_name, Assessment.course == course).get()
