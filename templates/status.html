@@ -20,7 +20,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Bot</th>
+                            <th>Bot Username</th>
                             <th>Status</th>
                             <th>User Count</th>
                             <th>Last Heartbeat</th>
@@ -28,17 +28,19 @@
                     </thead>
                     <tbody>
                         <!-- jinja for loop bots_status -->
+                        {{bots_status}}
                         {% for bot in bots_status %}
+                            {{bot}}
                             <tr>
-                                <td>{{ bot.name }}</td>
+                                <td>{{ bot }}</td>
                                 <td>
-                                    {% if bot.status == 'online' %}
+                                    {% if bots_status[bot]["status"] == 'online' %}
                                         <span class="label label-success">Online</span>
                                     {% else %}
                                         <span class="label label-danger">Offline</span>
                                     {% endif %}
-                                <td>{{ bot.user_count }}</td>
-                                <td>{{ bot.last_heartbeat }}</td>
+                                <td>{{ bots_status[bot]["user_count"] }}</td>
+                                <td>{{ bots_status[bot]["last_heartbeat"] }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
