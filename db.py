@@ -1,5 +1,4 @@
 from peewee import *
-from sqlalchemy import null
 
 from config import db
 
