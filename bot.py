@@ -161,7 +161,8 @@ def error_message(chat, message):
 @bot.timer(60)
 def send_heartbeat():
     total_users = get_total_users_count()
-    requests.get(heartbeat_server + f"/heartbeat?user_count={total_users}&bot_id={bot_id}")
+    requests.get(heartbeat_server +
+                 f"/heartbeat?user_count={total_users}&bot_uuid={bot_id}")
 
 if __name__ == "__main__":
     bot.run(workers=1)
