@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FStudent Bots Status</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- centered page, header saying FStudent bot status tracker, a single column each row showing bot and its status -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>FStudent Bot Status</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Bot</th>
+                            <th>Status</th>
+                            <th>User Count</th>
+                            <th>Last Heartbeat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- jinja for loop bots_status -->
+                        {% for bot in bots_status %}
+                            <tr>
+                                <td>{{ bot.name }}</td>
+                                <td>
+                                    {% if bot.status == 'online' %}
+                                        <span class="label label-success">Online</span>
+                                    {% else %}
+                                        <span class="label label-danger">Offline</span>
+                                    {% endif %}
+                                <td>{{ bot.user_count }}</td>
+                                <td>{{ bot.last_heartbeat }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

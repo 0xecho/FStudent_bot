@@ -1,12 +1,11 @@
 from time import sleep
 import botogram
-import logging
-
+import requests
 
 from api import EstudentAPI
-from config import TELEGRAM_BOT_TOKEN
+from config import TELEGRAM_BOT_TOKEN, heartbeat_server, bot_id
 from db import User, Course, Assessment, Result, UserCourse
-from utils import get_notifiable_users_data, format_result
+from utils import get_notifiable_users_data, format_result, get_total_users_count
 
 bot = botogram.create(TELEGRAM_BOT_TOKEN)
 
@@ -158,6 +157,11 @@ def notify_new_results():
 @bot.message_contains("")
 def error_message(chat, message):
     chat.send("I'm sorry, I don't understand what you mean. Please use /help to see all available commands")
+
+@bot.timer(60)
+def send_heartbeat():
+    total_users = get_total_users_count()
+    requests.get(heartbeat_server + f"/heartbeat?user_count={total_users}&bot_id={bot_id}")
 
 if __name__ == "__main__":
     bot.run(workers=1)

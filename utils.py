@@ -122,3 +122,6 @@ def format_result(result):
     md_string = md_string.replace("_", "\\_")
     return md_string
     
+
+def get_total_users_count():
+    return User.select().count()
