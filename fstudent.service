@@ -1,0 +1,12 @@
+[Unit]
+Description=FStudent service
+After=network.target
+Wants=network-online.target
+[Service]
+Restart=always
+Type=simple
+WorkingDirectory=<path to fstudent>/
+ExecStart=<path to pipenv virtualenv>/bin/python <path to fstudent>/bot.py
+Environment='BOT_ID=<BOT_USERNAME_HERE>' 'HEARTBEAT_SERVER=<HEARTBEAT_SERVER_HERE>' 'TELEGRAM_BOT_TOKEN=<TELEGRAM_BOT_TOKEN_HERE>'
+[Install]
+WantedBy=multi-user.target
