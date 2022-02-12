@@ -141,7 +141,7 @@ def onboard_user(username, password, chat_id):
     telegram_user.send("You are now subscribed to notifications")
     telegram_user.send("You can use /settings to change your preferences, or use /help to see all available commands")
 
-@bot.timer(60)
+@bot.timer(600)
 def notify_new_results():
     users = get_notifiable_users_data()
     for user, data in users.items():
